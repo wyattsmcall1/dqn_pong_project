@@ -24,26 +24,26 @@
     `conda install tensorflow`
 
 5. Install OpenAI [`gym`](https://github.com/openai/gym#installing-everything) using `everything` method into the root/project folder.
-* You can skip `MuJoCo` dependencies
-* First run:
-`apt-get install -y python-numpy python-dev cmake zlib1g-dev libjpeg-dev xvfb libav-tools xorg-dev python-opengl libboost-all-dev libsdl2-dev swig`
-or for OSX:
-`brew install cmake boost boost-python sdl2 swig wget`
 
-* Next clone the directory and `cd` into it:
+	* You can skip `MuJoCo` dependencies
+	* First run:
+	`apt-get install -y python-numpy python-dev cmake zlib1g-dev libjpeg-dev xvfb libav-tools xorg-dev python-opengl libboost-all-dev libsdl2-dev swig`
+	or for OSX:
+	`brew install cmake boost boost-python sdl2 swig wget`
 
-```
-git clone https://github.com/openai/gym.git
-cd gym
-```
-* Then run: `pip install -e '.[all]'`
+	* Next clone the directory and `cd` into it:
 
-6. Use pip to install `keras-rl` and `pygame` : `pip install keras-rl pygame`
-or for osx
-```
-pip install keras-rl
-pip install pygame==1.9.2
-```
+	```
+	git clone https://github.com/openai/gym.git
+	cd gym
+	```
+	* Then run: `pip install -e '.[all]'`
+
+6. Use pip to install `keras-rl` and `pygame` : `pip install keras-rl pygame` or for osx
+	```
+	pip install keras-rl
+	pip install pygame==1.9.2
+	```
 ## Setting up the game environment
 
 1. The root folder has a file `pong.py` that defines the game. We set this up as game in the `classic_control` environment provided by `gym`:
