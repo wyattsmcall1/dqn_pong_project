@@ -60,24 +60,25 @@ class PongEnv(gym.Env):
         'render.modes' : ['human', 'rgb_array'],
         'video.frames_per_second' : 30
     }
+    
+    def ball_init():
+        global ball_vel
+            horz     = 0
+            vert     = 0
+            while (horz == 0) or (vert == 0):
+                horz     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
+                vert     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
+    
+        if random.randrange(0,2) is not 0:
+            horz = - horz
+            
+            ball_vel = [horz, -vert]
 
     def __init__(self):
         global l_score, r_score, reward, reward_curr
         global high, low
         global paddle1_pos, paddle2_pos, ball_pos, ball_vel, paddle1_vel, paddle2_vel
         global ball_pos, ball_vel
-        def ball_init():
-            global ball_vel
-            horz     = 0
-            vert     = 0
-            while (horz == 0) or (vert == 0):
-                horz     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-                vert     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-        
-            if random.randrange(0,2) is not 0:
-                horz = - horz
-
-            ball_vel = [horz, -vert]
     
         r_score = 0
         l_score = 0
@@ -101,7 +102,7 @@ class PongEnv(gym.Env):
         (paddle1_pos[1], paddle1_vel, paddle2_pos[1], paddle2_vel, ball_pos[0], ball_pos[1], ball_vel[0], ball_vel[1]) = state
 
         ball_pos = [WIDTH//2, HEIGHT//2]
-        ball_init()
+        self.ball_init()
 
         self.state = (paddle1_pos[1], paddle1_vel, paddle2_pos[1], paddle2_vel, ball_pos[0], ball_pos[1], ball_vel[0], ball_vel[1])
 
@@ -114,18 +115,6 @@ class PongEnv(gym.Env):
         global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel, l_score, r_score
         global l_score, r_score, reward, reward_curr
         global ball_pos, ball_vel
-        def ball_init():
-            global ball_vel
-            horz     = 0
-            vert     = 0
-            while (horz == 0) or (vert == 0):
-                horz     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-                vert     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-            
-            if random.randrange(0,2) is not 0:
-                horz = - horz
-            
-            ball_vel = [horz, -vert]
         
         assert self.action_space.contains(action), "%r (%s) invalid" %(action, type(action))
         state = self.state
@@ -189,7 +178,7 @@ class PongEnv(gym.Env):
             #reward      += 2
             r_score      += 1
             ball_pos     = [WIDTH//2, HEIGHT//2]
-            ball_init()
+            self.ball_init()
 
         if int(ball_pos[0]) >= WIDTH + 1 - BALL_RADIUS - PAD_WIDTH and int(ball_pos[1]) in range(int(paddle2_pos[1] - HALF_PAD_HEIGHT), int(paddle2_pos[1] + HALF_PAD_HEIGHT), 1):
             reward += 1
@@ -200,7 +189,7 @@ class PongEnv(gym.Env):
             #reward     -= 2
             l_score     += 1
             ball_pos = [WIDTH//2, HEIGHT//2]
-            ball_init()
+            self.ball_init()
 
         #reward = reward
         self.state = (paddle1_pos[1], paddle1_vel, paddle2_pos[1], paddle2_vel, ball_pos[0], ball_pos[1], ball_vel[0], ball_vel[1])
@@ -241,18 +230,6 @@ class PongEnv(gym.Env):
         self.steps_beyond_done = None
         global l_score, r_score, reward, reward_curr
         global paddle1_pos, paddle2_pos, ball_pos, ball_vel
-        def ball_init():
-            global ball_vel
-            horz     = 0
-            vert     = 0
-            while (horz == 0) or (vert == 0):
-                horz     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-                vert     = random.randrange(-MAX_BALL_VEL,MAX_BALL_VEL)
-            
-            if random.randrange(0,2) is not 0:
-                horz = - horz
-            
-            ball_vel = [horz, -vert]
         
         r_score = 0
         l_score = 0
@@ -263,7 +240,7 @@ class PongEnv(gym.Env):
         (paddle1_pos[1], paddle1_vel, paddle2_pos[1], paddle2_vel, ball_pos[0], ball_pos[1], ball_vel[0], ball_vel[1]) = state
         
         ball_pos = [WIDTH//2, HEIGHT//2]
-        ball_init()
+        self.ball_init()
         
         self.state = (paddle1_pos[1], paddle1_vel, paddle2_pos[1], paddle2_vel, ball_pos[0], ball_pos[1], ball_vel[0], ball_vel[1])
 
